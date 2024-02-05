@@ -1,0 +1,4 @@
+name: SpawnJoin
+version: '${version}'
+main: org.windy.spawnjoin.SpawnJoin
+api-version: '1.20'
