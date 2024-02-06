@@ -12,10 +12,9 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.Location;
-
 
 import java.io.File;
+import java.io.IOException;
 
 public final class SpawnJoin extends JavaPlugin implements Listener {
     private File configFile;
@@ -34,7 +33,7 @@ public final class SpawnJoin extends JavaPlugin implements Listener {
         // 加载配置文件
         config = YamlConfiguration.loadConfiguration(configFile);
 
-        // Plugin startup logic
+        // 注册事件监听器
         getServer().getPluginManager().registerEvents(this, this);
         this.getServer().getConsoleSender().sendMessage(Texts.logo);
     }
@@ -58,6 +57,7 @@ public final class SpawnJoin extends JavaPlugin implements Listener {
             this.getServer().getConsoleSender().sendMessage("该世界不存在！");
         }
     }
+
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (command.getName().equalsIgnoreCase("sj")) {
@@ -67,29 +67,43 @@ public final class SpawnJoin extends JavaPlugin implements Listener {
                     return true;
                 }
                 this.reloadConfig();
-                sender.sendMessage("§aTeleportOffset 配置已重新加载!");
+                sender.sendMessage("§aSpawnJoin 配置已重新加载!");
                 return true;
-            } else if(args.length > 0 && args[0].equalsIgnoreCase("setspawn")) {
+            } else if (args.length > 0 && args[0].equalsIgnoreCase("setspawn")) {
                 if (!sender.hasPermission("SpawnJoin.setspawn")) {
                     sender.sendMessage("§c你没有权限来执行这个指令!");
                     return true;
                 }
-                Player player = (Player) sender;
-                Location location = player.getLocation();
-                // 更新配置文件中的值
-                config.set("location.Spawnworld", location.getWorld().getName());
-                config.set("location.x", location.getX());
-                config.set("location.y", location.getY());
-                config.set("location.z", location.getZ());
+                if (sender instanceof Player) {
+                    Player player = (Player) sender;
+                    Location location = player.getLocation();
 
-                return true;
-            }else{
-                sender.sendMessage("§c用法: /teleportoffset reload");
+                    // 更新配置文件中的值
+                    config.set("location.Spawnworld", location.getWorld().getName());
+                    config.set("location.x", location.getX());
+                    config.set("location.y", location.getY());
+                    config.set("location.z", location.getZ());
+
+                    // 保存配置文件
+                    try {
+                        config.save(configFile);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    sender.sendMessage("&b传送&3系统 &f➢ 进服位置已设置在" + location.getWorld().getName() + "：" + location.getX() + location.getY() + location.getZ());
+                    return true;
+                } else {
+                    sender.sendMessage("§c只有玩家可以执行这个指令!");
+                    return true;
+                }
+            } else {
+                sender.sendMessage("§c用法: /sj reload 或 /sj setspawn");
                 return true;
             }
         }
         return false;
     }
+
     @Override
     public void onDisable() {
         // Plugin shutdown logic

@@ -1,4 +1,9 @@
 name: SpawnJoin
-version: '${version}'
+version: ${version} # 替换为你的插件实际版本号
 main: org.windy.spawnjoin.SpawnJoin
 api-version: '1.20'
+commands:
+  sj:
+    description: Commands for SpawnJoin plugin.
+    usage: /<command> [reload|setspawn]
+    aliases: [spawnjoin]
