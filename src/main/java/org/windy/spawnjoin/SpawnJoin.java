@@ -90,7 +90,7 @@ public final class SpawnJoin extends JavaPlugin implements Listener {
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-                    sender.sendMessage("&b传送&3系统 &f➢ 进服位置已设置在" + location.getWorld().getName() + "：" + location.getX() + location.getY() + location.getZ());
+                    sender.sendMessage("§b传送§3系统 §f➢ 进服位置已设置在" + location.getWorld().getName() + "：" + location.getX() + "," +location.getY() + "，"+location.getZ());
                     return true;
                 } else {
                     sender.sendMessage("§c只有玩家可以执行这个指令!");
