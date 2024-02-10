@@ -44,13 +44,16 @@ public final class SpawnJoin extends JavaPlugin implements Listener {
         double x = config.getDouble("location.x");
         double y = config.getDouble("location.y");
         double z = config.getDouble("location.z");
+        int n = config.getInt("frequency");
         String worldName = config.getString("location.Spawnworld");
         World world = Bukkit.getWorld(worldName);
 
         if (world != null) {
             Location location = new Location(world, x, y, z);
-            // 将玩家传送到指定位置
-            player.teleport(location);
+            for (int i = 0; i < n; i++) {
+                // 将玩家传送到指定位置
+                player.teleport(location);
+            }
         } else {
             // 处理无效的世界名称的情况，可能需要给出错误提示或者使用默认世界等
             this.getServer().getConsoleSender().sendMessage(Texts.logo);
