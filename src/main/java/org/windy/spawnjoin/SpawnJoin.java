@@ -55,7 +55,7 @@ public final class SpawnJoin extends JavaPlugin implements Listener {
                 // 将玩家传送到指定位置
                 player.teleport(location);
                 n2++;
-                if(n2==n){
+                if(n2>=n){
                     break;
                 }
             }
