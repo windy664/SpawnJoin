@@ -50,10 +50,16 @@ public final class SpawnJoin extends JavaPlugin implements Listener {
 
         if (world != null) {
             Location location = new Location(world, x, y, z);
-            for (int i = 0; i < n; i++) {
+            int n2 = 0;
+            while (player.getLocation().equals(location)) {
                 // 将玩家传送到指定位置
                 player.teleport(location);
+                n2++;
+                if(n2==n){
+                    break;
+                }
             }
+
         } else {
             // 处理无效的世界名称的情况，可能需要给出错误提示或者使用默认世界等
             this.getServer().getConsoleSender().sendMessage(Texts.logo);
@@ -111,5 +117,6 @@ public final class SpawnJoin extends JavaPlugin implements Listener {
     public void onDisable() {
         // Plugin shutdown logic
         this.getServer().getConsoleSender().sendMessage(Texts.logo);
+        this.getServer().getConsoleSender().sendMessage("插件已被卸载，感谢使用！");
     }
 }
