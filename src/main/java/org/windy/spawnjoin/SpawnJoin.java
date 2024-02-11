@@ -50,12 +50,12 @@ public final class SpawnJoin extends JavaPlugin implements Listener {
 
         if (world != null) {
             Location location = new Location(world, x, y, z);
-            int n2 = 0;
+            int i = 0;
             while (player.getLocation().equals(location)) {
                 // 将玩家传送到指定位置
                 player.teleport(location);
-                n2++;
-                if(n2>=n){
+                i++;
+                if(i >= n){
                     break;
                 }
             }
