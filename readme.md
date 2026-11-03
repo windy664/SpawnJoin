@@ -1,39 +1,45 @@
-# SpawnJoin 插件
+<div align="center">
 
-这是一个 Bukkit/Spigot 服务器的插件，用于在玩家加入服务器时将其传送到指定的生成点。
+<img src="assets/banner.svg" alt="SpawnJoin" width="100%">
 
-## 功能
+# SpawnJoin
 
-- 当玩家加入服务器时，将其传送到配置文件指定的生成点。
-- 允许管理员使用 `/sj setspawn` 命令在游戏中设置生成点。
-- 支持重新加载插件配置。
+**进服自动落点插件** —— 玩家进入服务器时自动传送到配置好的出生点，频率可控。
 
-## 安装
+![Platform](https://img.shields.io/badge/Platform-Spigot%20%2F%20Paper-62bda8?style=flat-square&logo=minecraft&logoColor=white)
+![Minecraft](https://img.shields.io/badge/MC-1.20.x-8a9a5b?style=flat-square)
+![Java](https://img.shields.io/badge/Java-17-f89820?style=flat-square&logo=openjdk&logoColor=white)
 
-1. 将插件 `.jar` 文件放入服务器的 `plugins` 文件夹中。
-2. 重启服务器或使用插件管理命令重新加载插件。
+[功能](#-功能) · [配置](#️-配置) · [命令](#-命令)
 
-## 使用
+</div>
 
-- 默认生成点是配置文件中指定的坐标和世界。
-- 管理员可以使用 `/sj setspawn` 命令在游戏中设置生成点。
+## ✨ 功能
 
-**命令：**
+- **进服落点**：玩家加入服务器后自动传送到 `config.yml` 指定的世界坐标
+- **频率控制**：`frequency` 控制触发节奏，避免重连刷屏式传送
+- **在线管理出生点**：站好位置执行 `/sj setspawn`，一键把当前坐标写入配置
 
-- `/sj setspawn` - 在游戏中设置生成点。
-
-**权限：**
-
-- `SpawnJoin.setspawn` - 允许玩家使用 `/sj setspawn` 命令设置生成点。
-- `SpawnJoin.reload` - 允许玩家使用 `/sj reload` 命令重新加载插件配置。
-
-## 配置
-
-在 `plugins/SpawnJoin` 文件夹中的 `config.yml` 文件中可以找到插件的配置。
+## ⚙️ 配置
 
 ```yaml
 location:
   Spawnworld: world
-  x: 0.0
-  y: 64.0
-  z: 0.0
+  x: 1
+  y: 2
+  z: 3
+frequency: 2
+```
+
+## 📜 命令
+
+| 命令 | 说明 | 别名 |
+|------|------|------|
+| `/sj reload` | 重载配置 | `spawnjoin` |
+| `/sj setspawn` | 将当前坐标设为进服出生点 | |
+
+## 🔨 构建
+
+```bash
+./gradlew build
+```
